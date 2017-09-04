@@ -53,22 +53,26 @@ void RSPClientCLI::run() {
 					cin>>username;
 					char u[100];
 					strcpy(u,username.c_str());
-					handleGame(client->startGameWith(u));
+					handleGame(client->startGameWith(u),u);
 					break;
 				}
 				case START_GAME_WITH_RANDOM:
 				{
-					handleGame(client->startGameWith(NULL));
+					handleGame(client->startGameWith(NULL),"Random User");
 					break;
 				}
 				case SET_USER_AVAILABLE:
 					client->setUserAvailability(true);
 					sleep(1);
 					int otherPort;
+					int s;
+					char c[100];
+					client->getSocket()->read((char*)&s, 4);
+					client->getSocket()->read(c, s);
 					client->getSocket()->read((char*)&otherPort, 4);//wait for incoming game
 					if(otherPort!=-1)
 					{
-						handleGame(otherPort);
+						handleGame(otherPort,c);
 
 					}
 
@@ -98,13 +102,14 @@ void RSPClientCLI::run() {
 	}
 }
 
-void RSPClientCLI::handleGame(int newPort) {
+void RSPClientCLI::handleGame(int newPort,char* username) {
 
 	UDPSocket* mySock=new UDPSocket(this->client->getSocket()->getPort());
 	int c1,c2;
 	int res=0;
 	if(mySock!=NULL)
 	{
+		cout<<"Starting a game with "<<username<<endl;
 		if(this->client->getSocket()->getPort()>newPort)
 		{
 			c1=getClientRSPChoice(mySock,newPort);

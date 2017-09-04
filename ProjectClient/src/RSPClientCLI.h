@@ -28,7 +28,7 @@ public:
 	/**
 	 * After a game start this method handle the game order and policy
 	 */
-	void handleGame(int newPort);
+	void handleGame(int newPort,char* username);
 	/**
 	 * This method run the CLI interface for the user
 	 */
