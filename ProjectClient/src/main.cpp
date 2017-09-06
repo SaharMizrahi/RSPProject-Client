@@ -4,22 +4,22 @@
 #include "RSPGameClient.h"
 #include "RSPClientCLI.h"
 #include "ClientTest.h"
+#include "RSPGameTest.h"
 using namespace std;
 using namespace networkingLab;
 
 int main() {
-
-	ClientTest* t=new ClientTest();
+	/*RSPGameTest* t=new RSPGameTest();
 	bool res=t->test();
 	if(res)
-		cout<<"Client Test Succeed"<<endl;
+		cout<<"game Test Succeed"<<endl;
 	else
-		cout<<"Client Test Failed"<<endl;
+		cout<<"game Test Failed"<<endl;*/
 
-	/*RSPGameClient* client=new RSPGameClient("gal","gal","login");
+	RSPGameClient* client=new RSPGameClient("gal","gal","login");
 	RSPClientCLI* cli=new RSPClientCLI(client);
 	cli->start();
-	cli->waitForThread();*/
+	cli->waitForThread();
 
 
 
